@@ -1,6 +1,7 @@
+import os
 import dotenv
 import hydra
-from omegaconf import DictConfig
+from omegaconf import DictConfig, open_dict
 
 # load environment variables from `.env` file if it exists
 # recursively searches for `.env` in all folders starting from work dir
@@ -9,6 +10,11 @@ dotenv.load_dotenv(override=True)
 
 @hydra.main(config_path="configs/", config_name="config.yaml")
 def main(config: DictConfig):
+
+    with open_dict(config):
+        config.log_dir = os.path.abspath(os.curdir)
+    # set working dir to the original one
+    os.chdir(hydra.utils.get_original_cwd())
 
     # Imports can be nested inside @hydra.main to optimize tab completion
     # https://github.com/facebookresearch/hydra/issues/934

@@ -5,6 +5,7 @@
 default_mode: True
 
 hydra:
+  output_subdir: null
   # default output paths for all file logs
   run:
     dir: logs/runs/${now:%Y-%m-%d}/${now:%H-%M-%S}

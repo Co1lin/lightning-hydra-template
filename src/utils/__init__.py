@@ -1,3 +1,4 @@
+import os
 import logging
 import warnings
 from typing import List, Sequence
@@ -109,7 +110,7 @@ def print_config(
 
     rich.print(tree)
 
-    with open("config_tree.log", "w") as fp:
+    with open(os.path.join(config.log_dir, "config_tree.log"), "w") as fp:
         rich.print(tree, file=fp)
 
 
